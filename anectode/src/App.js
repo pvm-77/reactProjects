@@ -6,7 +6,6 @@ import Vote from './components/Vote';
 
 // import voteImg from './voting-box.png';
 function App() {
-
   // generate random number between 0 and variable length of anecdotes array
   const generateRandomNumber = (sizeOfAnectodeArray) => {
     return Math.floor(Math.random() * sizeOfAnectodeArray);
@@ -26,12 +25,10 @@ function App() {
     setSelectedRandomAnecdoteIndex(randomIndex);
   }
   const [totalVotes, setTotalVotes] = useState(Array(anecdotes.length-1).fill(0));
-
   const handleVoteCount = () => {
     const newTotalVotes = [...totalVotes];
     newTotalVotes[selectedRandomAnecdoteIndex] += 1;
     setTotalVotes(newTotalVotes);
-
   }
   return (
     <div>
