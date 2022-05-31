@@ -1,48 +1,76 @@
-import { useState } from "react";
-
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Card from "./components/Card";
+import Note from "./components/Note";
+import { useState } from 'react';
 import Button from "./components/Button";
-import StaticsFeedback from "./components/StaticsFeedback";
-
 function App() {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const mynotes = [
+    {
+      id: 1,
+      content: 'HTML is easy',
+      date: '2019-05-30T17:30:31.098Z',
+      important: true
+    },
+    {
+      id: 2,
+      content: 'Browser can execute only Javascript',
+      date: '2019-05-30T18:39:34.091Z',
+      important: false
+    },
+    {
+      id: 3,
+      content: 'GET and POST are the most important methods of HTTP protocol',
+      date: '2019-05-30T19:20:14.298Z',
+      important: true
+    }
+
+  ]
+  const [notes, setNotes] = useState(mynotes);
+  const [newNote, setNewNote] = useState('');
+  const [showAll, setShowAll] = useState(true);
+
+  const notesToShow = showAll ? notes : notes.filter(note => note.important)
+  const addNote = (e) => {
+    e.preventDefault();
+    const noteObject = {
+      content: newNote,
+      date: new Date().toISOString(),
+      important: false,
+      id: notes.length + 1
+    }
+    setNotes(notes.concat(noteObject));
+    setNewNote('');
+
+
+
+  }
+  const handleNoteChange = (e) => {
+    // console.log(e.target.value);
+    setNewNote(e.target.value)
+  }
+  const toggleAllAndImportant = () => {
+    setShowAll(!showAll)
+  }
 
   return (
-    <>
-      <Header />
-      <Card text="Counter App" />
-      {/* <Card text="Stop watch" /> */}
-      {/* customer feedback   */}
+    <div>
+
       <div className="card w-50 mt-3 shadow mx-auto">
-        <h5 className="card-header">Give Feedback</h5>
+        <h1 className="card-header">Notes</h1>
         <div className="card-body">
-          <div
-            className="btn-group d-flex justify-content-center"
-            role="group"
-            aria-label="Basic mixed styles example"
-          >
-            <Button className="btn btn-danger" text="bad" />
-            <Button className="btn btn-warning" text="neutral" />
-            <Button className="btn btn-success" text="good" />
-          </div>
-          <h1 className='text-center'>Statics of  Feedback</h1>
-          <div className='row'>
-          <StaticsFeedback title='good'/>
-          <StaticsFeedback  title='bad'/>
-          <StaticsFeedback title='neutral'/>
-          </div>
-          
-       
+          {/* <button className="btn btn-primary mb-3" onClick={toggleAllAndImportant}>show {showAll ? 'important' : 'All'}</button> */}
+          <Button className='btn btn-primary mb-3' buttonTitle= {showAll ? 'show important note' : 'shote All note'} onClickHandler={toggleAllAndImportant} />
+
+          {notesToShow.map((note) => (
+            <Note key={note.id} note={note} />
+          ))}
+          <form onSubmit={addNote}>
+            <input className="form-control w-50" value={newNote} onChange={handleNoteChange} placeholder="add note" />
+            {/* <button className="btn btn-primary my-1 " type="submit">save</button> */}
+            <Button className='btn btn-primary my-1' buttonTitle='save'  />
+          </form>
+
         </div>
       </div>
-
-      <Footer />
-    </>
+    </div>
   );
 }
 
