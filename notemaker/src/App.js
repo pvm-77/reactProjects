@@ -26,7 +26,6 @@ function App() {
   const [notes, setNotes] = useState(mynotes);
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
-
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
   const addNote = (e) => {
     e.preventDefault();
@@ -38,33 +37,25 @@ function App() {
     }
     setNotes(notes.concat(noteObject));
     setNewNote('');
-
-
-
   }
   const handleNoteChange = (e) => {
-    // console.log(e.target.value);
     setNewNote(e.target.value)
   }
   const toggleAllAndImportant = () => {
     setShowAll(!showAll)
   }
-
   return (
     <div>
-
       <div className="card w-50 mt-3 shadow mx-auto">
         <h1 className="card-header">Notes</h1>
-        <div className="card-body">
-          {/* <button className="btn btn-primary mb-3" onClick={toggleAllAndImportant}>show {showAll ? 'important' : 'All'}</button> */}
+        <div className="card-body"> 
           <Button className='btn btn-primary mb-3' buttonTitle= {showAll ? 'show important note' : 'shote All note'} onClickHandler={toggleAllAndImportant} />
-
           {notesToShow.map((note) => (
             <Note key={note.id} note={note} />
           ))}
+        
           <form onSubmit={addNote}>
             <input className="form-control w-50" value={newNote} onChange={handleNoteChange} placeholder="add note" />
-            {/* <button className="btn btn-primary my-1 " type="submit">save</button> */}
             <Button className='btn btn-primary my-1' buttonTitle='save'  />
           </form>
 
