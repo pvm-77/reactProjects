@@ -2,7 +2,7 @@ import React from "react";
 import Particle from '../../components/Particle';
 
 import mainImage from "../../components/img.jpg";
-import sampledev from "../../components/sampledev.jpeg";
+import pro from "../../components/pro.jpg";
 import hand from "../../components/hand.gif";
 import Typewriter from "typewriter-effect";
 import typewriterConfig from "../../config/typewriter-config";
@@ -14,22 +14,22 @@ const Home = () => {
             <br></br>
             <br></br>
             <br></br>
-            <div className="container">
-                <div className="row">
-                    <div className="col-7">
-                        <h1 style={{ color: 'white' }}>Hi EveryBody
-                            <span> <img src={hand} width="40" height={40} /></span>
+            <div className="container-fluid">
+                <div className="row mx-auto">
+                    <div className="col-6">
+                        <h1 style={{ color: 'white',fontFamily:'"Parisienne", cursive' }}>Hi EveryBody
+                            <span> <img style={{opacity:'1'}} src={hand} width="40" height={40} /></span>
                         </h1>
 
-                        <h1 style={{ color: 'white' }}>
+                        <h1 style={{ color: 'white',fontFamily:'"Parisienne", cursive' }}>
                             I am
-                            <strong style={{ color: '#244535' }}> Sarfaraz </strong>
+                            <strong style={{ color: '#244535',fontFamily:'"Parisienne", cursive' }}> Sarfaraz </strong>
                         </h1>
-                        <div style={{ fontSize: "40px" }}>
+                        <div style={{ fontSize: "40px",fontFamily:'"Parisienne", cursive' }}>
                             <Typewriter options={typewriterConfig} />
                         </div>
                         {/*  */}
-                        <div style={{ fontFamil: "" }} className="mt-3">
+                        {/* <div style={{ fontFamil: "" }} className="mt-3">
                             <p style={{
                                 fontSize: '40px',
                                 // multiple font familys
@@ -40,10 +40,10 @@ const Home = () => {
                             <h2>i am learning react</h2>
 
 
-                        </div>
+                        </div> */}
                     </div>
-                    <div className="col-5">
-                        {/* <img style={{ opacity: "0.2" }} src={sampledev} className='responsive' alt="mainImage" /> */}
+                    <div className="col-6 ">
+                        <img width={400} height={200} style={{ opacity: "0.2" }} src={pro} className='responsive' alt="mainImage" />
                     </div>
                 </div>
             </div>
