@@ -1,0 +1,46 @@
+/* basic style set up for navbar */
+@import url("https://fonts.googleapis.com/css2?family=Engagement&family=Nunito:wght@200&family=Parisienne&family=Roboto+Serif:opsz,wght@8..144,100&display=swap");
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+
+  color: white;
+}
+nav {
+  background-color: rgb(7, 168, 114);
+}
+.menu {
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  /* space  */
+
+  border: 1px dotted green;
+  list-style: none;
+}
+
+/* on hove navigation link make it underline */
+.menu li:hover {
+  text-decoration: underline;
+  /* transitioon  */
+  transition: all 0.5s ease-in-out;
+  background: black;
+  font-size: 40px;
+
+  /* underline color */
+}
+.navigation-link {
+  font-size: 30px;
+}
+.navigation-item {
+ 
+  font-family: "Parisienne", cursive;
+ 
+}

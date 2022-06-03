@@ -4,6 +4,7 @@ import Particle from '../../components/Particle';
 import mainImage from "../../components/img.jpg";
 import pro from "../../components/pro.jpg";
 import hand from "../../components/hand.gif";
+import proj from "../../components/proj.gif";
 import Typewriter from "typewriter-effect";
 import typewriterConfig from "../../config/typewriter-config";
 const Home = () => {
@@ -18,11 +19,13 @@ const Home = () => {
                 <div className="row mx-auto">
                     <div className="col-6">
                         <h1 style={{ color: 'white',fontFamily:'"Parisienne", cursive' }}>Hi EveryBody
-                            <span> <img style={{opacity:'1'}} src={hand} width="40" height={40} /></span>
+                            <span> &#128075;
+                                 {/* <img style={{opacity:'1'}} src={hand} width="40" height={40} /> */}
+                                 </span>
                         </h1>
 
                         <h1 style={{ color: 'white',fontFamily:'"Parisienne", cursive' }}>
-                            I am
+                            I am 
                             <strong style={{ color: '#244535',fontFamily:'"Parisienne", cursive' }}> Sarfaraz </strong>
                         </h1>
                         <div style={{ fontSize: "40px",fontFamily:'"Parisienne", cursive' }}>
@@ -43,7 +46,7 @@ const Home = () => {
                         </div> */}
                     </div>
                     <div className="col-6 ">
-                        <img width={400} height={200} style={{ opacity: "0.2" }} src={pro} className='responsive' alt="mainImage" />
+                        <img  style={{ opacity: "0.6",zIndex:'1' }} src={proj} className='responsive' alt="mainImage" />
                     </div>
                 </div>
             </div>
