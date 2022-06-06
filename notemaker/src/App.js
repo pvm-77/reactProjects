@@ -1,5 +1,6 @@
 import Note from "./components/Note";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Button from "./components/Button";
 function App() {
   const mynotes = [
@@ -23,9 +24,25 @@ function App() {
     }
 
   ]
-  const [notes, setNotes] = useState(mynotes);
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
+  // using effect hook
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/notes')
+      .then(response => {
+        console.log('promise fulfilled')
+        setNotes(response.data)
+      })
+  }, [])
+  console.log('render', notes.length, 'notes')
+
+
+
+
+
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
   const addNote = (e) => {
     e.preventDefault();
@@ -48,15 +65,15 @@ function App() {
     <div>
       <div className="card w-50 mt-3 shadow mx-auto">
         <h1 className="card-header">Notes</h1>
-        <div className="card-body"> 
-          <Button className='btn btn-primary mb-3' buttonTitle= {showAll ? 'show important note' : 'shote All note'} onClickHandler={toggleAllAndImportant} />
+        <div className="card-body">
+          <Button className='btn btn-primary mb-3' buttonTitle={showAll ? 'show important note' : 'shote All note'} onClickHandler={toggleAllAndImportant} />
           {notesToShow.map((note) => (
             <Note key={note.id} note={note} />
           ))}
-        
+
           <form onSubmit={addNote}>
             <input className="form-control w-50" value={newNote} onChange={handleNoteChange} placeholder="add note" />
-            <Button className='btn btn-primary my-1' buttonTitle='save'  />
+            <Button className='btn btn-primary my-1' buttonTitle='save' />
           </form>
 
         </div>
