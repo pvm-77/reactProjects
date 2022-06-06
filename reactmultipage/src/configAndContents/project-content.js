@@ -1,5 +1,5 @@
 
-import pro from "../components/pro.jpg";
+import pro from "../Assets/pro.jpg";
 const project = [
     {
         id: 1,

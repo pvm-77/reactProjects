@@ -5,42 +5,30 @@
   padding: 0;
   margin: 0;
 }
-a {
-  text-decoration: none;
+nav{
+  color: aliceblue;
+}
 
+.logo{
+  border-radius: 50%;
+}
+.custom{
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: pink;
+}
+
+.navbar-nav li:hover{
+  background-color: rgba(55, 103, 75, 0.634);
+  border-bottom: 2px solid darkgreen;
+  
+}
+/* before hover li a white color */
+.navbar-nav li a{
   color: white;
 }
-nav {
-  background-color: rgb(7, 168, 114);
-}
-.menu {
-  padding: 2px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
-  /* space  */
-
-  border: 1px dotted green;
-  list-style: none;
-}
-
-/* on hove navigation link make it underline */
-.menu li:hover {
-  text-decoration: underline;
-  /* transitioon  */
-  transition: all 0.5s ease-in-out;
-  background: black;
-  font-size: 40px;
-
-  /* underline color */
-}
-.navigation-link {
-  font-size: 30px;
-}
-.navigation-item {
- 
-  font-family: "Parisienne", cursive;
- 
+/* after click on hover same css */
+.navbar-nav li:hover a{
+  color: black !important;
 }

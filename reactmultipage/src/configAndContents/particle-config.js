@@ -2,7 +2,7 @@
   autoPlay: true,
   background: {
     color: {
-      value: "#55884e"
+      value: "#0a401d"
     },
     image: "",
     position: "50% 50%",

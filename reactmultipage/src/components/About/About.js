@@ -1,10 +1,16 @@
 import React from 'react'
 import Particle from '../Particle'
+import Intro from './Intro'
 
 const About = () => {
   return (
-    <div>About
+    <div>
       <Particle/>
+
+      <div className='container-fluid'>
+      <Intro/>
+
+      </div>
     </div>
   )
 }
