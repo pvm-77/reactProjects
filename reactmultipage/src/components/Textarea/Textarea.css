@@ -1,0 +1,16 @@
+/* remove default background of textarea */
+.textarea {
+  background: transparent;
+  /* border: none; */
+  color: rgba(154, 233, 154, 0.517);
+  font-size: 1.6rem;
+  font-weight: 300;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+
+/* change default placeholder color */
+:placeholder-shown {
+  color: white;
+}
