@@ -1,0 +1,10 @@
+/* modify card header  */
+.custom-card-header {
+    /* background: transparent; */
+    /* border: none; */
+    color: whitesmoke;
+    font-size: 1.6rem;
+    font-weight: 300;
+    padding: 0.5rem;
+    width: 100%;
+}

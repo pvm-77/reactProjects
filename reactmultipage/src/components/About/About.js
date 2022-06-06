@@ -4,7 +4,7 @@ import Particle from '../Particle'
 const About = () => {
   return (
     <div>About
-      <Particle/>
+      {/* <Particle/> */}
     </div>
   )
 }

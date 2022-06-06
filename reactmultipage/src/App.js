@@ -8,6 +8,7 @@ import Resume from './components/Resume/Resume';
 import Project from './components/Project/Project';
 import Blogs from './components/Blogs/Blogs';
 import Navbar from './components/Navbar/Navbar';
+import '../src/Assets/style.css'
 function App() {
   return (
     <div className="App">
