@@ -11,7 +11,7 @@ const Home = () => {
     return (
     
         <div>
-            <Particle/>
+       
             
             <div className="container-fluid mt-3">
                 <div className="row mx-auto">
