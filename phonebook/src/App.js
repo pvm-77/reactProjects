@@ -14,6 +14,7 @@ function App() {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterText, setFilterText] = useState("");
+  const [errorMessage,setErrorMessage]=useState('something went wrong');
 
 
   const handleFilter = (e) => {
@@ -108,7 +109,8 @@ function App() {
             setPersons(persons.filter(person => person.id !== returnedContact.id))
           }
         ).catch(error => {
-          console.log('something went wrong')
+          setErrorMessage(`${name}} already delete`);
+          setPersons(persons.filter(person=>person.id !== returnedContact.id))
         }
         )
         Swal.fire("Deleted!", "Your contact has been deleted.", "success");
@@ -150,6 +152,8 @@ function App() {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification  />
       <div>
         filter shown with: <input value={filterText} onChange={handleFilter} name="search" />
       </div>
