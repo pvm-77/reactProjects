@@ -4,22 +4,43 @@ import { useState, useEffect } from 'react';
 import Button from "./components/Button";
 import noteService from './services/notes';
 
+// import axios from "axios";
 function App() {
-
+// set initial notes from db.json file using useEffect
   const [notes, setNotes] = useState([]);
+
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
 
 
-  const hook = () => {
-    noteService.getAll().then(initialNotes => {
-      setNotes(initialNotes);
-    }
-    );
-  }
+  // const hook = () => {
+  //   noteService.getAll().then(initialNotes => {
+  //     setNotes(initialNotes);
+  //   }
+  //   );
+  // }
 
-  useEffect(hook, [])
+  // useEffect(hook, [])
 
+  // first time useEffect hook use
+  useEffect(() => {
+    // console.log('effect');
+    // axios.get('http://localhost:3001/notes')
+    // .then(
+    //   response => {
+    //     console.log('promise fulfilled');
+    //     setNotes(response.data);
+    //   })
+    noteService.getAll().then(
+      initialNotes=>{
+        // console.log(response)
+        setNotes(initialNotes)
+      }
+    ).catch(error=>console.log(error))
+
+
+  }, []);
+  // console.log('render', notes.length, 'notes');
 
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
@@ -41,8 +62,8 @@ function App() {
       )
       
 
-    setNotes(notes.concat(noteObject));
-    setNewNote('');
+    // setNotes(notes.concat(noteObject));
+    // setNewNote('');
   }
   const handleNoteChange = (e) => {
     setNewNote(e.target.value)
@@ -53,15 +74,20 @@ function App() {
 
   const toggleImportanceOf = (id) => {
     // console.log(`importance of  ${id}  needs to be toggled`)
+    // const url=`http://localhost:3001/notes/${id}`;
 
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
-    noteService.update(id, changedNote)
-      .then(
-        returnedNote => {
-          setNotes(notes.map(note => note.id === id ? returnedNote : note))
-        }
-      )
+    // update request to server
+    noteService.update(id,changedNote).then(
+      returnedNote => {
+        // console.log(response)
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+      }
+    ).catch()
+    // axios.put(url,changedNote).then(response=>{
+    //   setNotes(notes.map(note=>note.id!==id?note:response.data))
+    // })
 
 
   }
