@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import Button from "./components/Button";
 import noteService from './services/notes';
+import Notification from './components/Notification';
 
 // import axios from "axios";
 function App() {
@@ -11,6 +12,7 @@ function App() {
 
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage,setErrorMessage]=useState(null);
 
 
   // const hook = () => {
@@ -84,7 +86,10 @@ function App() {
         // console.log(response)
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       }
-    ).catch()
+    ).catch(error=>{
+      setErrorMessage(`Note ${note.content} already remove from server`)
+
+    })
     // axios.put(url,changedNote).then(response=>{
     //   setNotes(notes.map(note=>note.id!==id?note:response.data))
     // })
@@ -94,7 +99,11 @@ function App() {
   return (
     <div>
       <div className="card w-50 mt-3 shadow mx-auto">
+      <Notification message={errorMessage}/>
+
         <h1 className="card-header">Notes</h1>
+        
+
         <div className="card-body">
           <Button className='btn btn-primary mb-3' buttonTitle={showAll ? 'show important note' : 'shote All note'} onClickHandler={toggleAllAndImportant} />
           {notesToShow.map((note) => (

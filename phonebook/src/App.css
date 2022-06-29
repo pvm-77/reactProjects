@@ -1,0 +1,6 @@
+/* remove outline border from input */
+input:focus {
+  outline: none;
+  border: none;
+  border-color: red !important;
+}

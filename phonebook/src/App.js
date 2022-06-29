@@ -6,17 +6,90 @@ import axios from "axios";
 import Notification from "./components/Notification";
 
 import personsService from "./services/persons";
+import loginService from "./services/login";
+import Footer from "./components/Footer";
 
 function App() {
-  const [persons, setPersons] = useState([
+  // helper functions for contact form and login form to render then conditioa
+  const noteForm = () => {
+    return (
+      <>
+        <form onSubmit={addPerson} >
+          <div className="form-group">
+            <input placeholder="enter name here" type='text' className="form-control my-1" name="name" value={newName} onChange={handlePerson} />
+            <input placeholder="enter number here" type='tel' className="form-control my-1" name="number" value={newNumber} onChange={handlePersonNumber} />
+          </div>
+          <div>
+            <button className="btn btn-success  w-100" type="submit">add</button>
+          </div>
+        </form>
+      </>
+    )
+  }
+  const loginForm = () => {
+    return (
+      <>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control my-1"
+              name="Username"
+              value={username}
+              onChange={({ target }) => setUserName(target.value)}
+              placeholder="enter user name"
 
-  ]);
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control my-1"
+              name="Password"
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+              placeholder="enter password"
+
+            />
+          </div>
+          <button type="submit" className="btn btn-success w-100">Login</button>
+        </form>
+      </>
+    )
+  }
+
+
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterText, setFilterText] = useState("");
-  const [errorMessage,setErrorMessage]=useState('something went wrong');
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
+
+  const handleLogin = async(e) => {
+    e.preventDefault();
+    // console.log('logging with',username,password);
+    try {
+      const user = await loginService.login({ username, password });
+      console.log('user', user);
+      setUser(user);
+      setUserName("");
+      setPassword("");
 
 
+    } catch (error) {
+      setErrorMessage('wrong username or password');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }
+        , 5000);
+
+
+    }
+
+  }
   const handleFilter = (e) => {
 
     setFilterText(e.target.value)
@@ -102,6 +175,7 @@ function App() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!"
     }).then(result => {
+
       if (result.value) {
         // if user confirm, delete contact
         personsService.deleteContact(id).then(
@@ -109,15 +183,20 @@ function App() {
             setPersons(persons.filter(person => person.id !== returnedContact.id))
           }
         ).catch(error => {
-          setErrorMessage(`${name}} already delete`);
-          setPersons(persons.filter(person=>person.id !== returnedContact.id))
+          setErrorMessage(`${name} has already been deleted from server`)
         }
         )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000);
         Swal.fire("Deleted!", "Your contact has been deleted.", "success");
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000)
       }
     }
     )
-   
+
 
 
   }
@@ -148,35 +227,48 @@ function App() {
 
 
 
+  //  crate style object for input
+  const style = {
+    border: '1px solid red',
+    outline: 'none',
 
+  }
   return (
     <div>
-      <h2>Phonebook</h2>
+      <div className="card text-center w-50 mx-auto">
+        <div className="card-header">
+          <h2>Phonebook</h2>
+        </div>
+        <div className="card-body">
+          <Notification message={errorMessage} />
+         {
+          noteForm()
+         }
 
-      <Notification  />
-      <div>
-        filter shown with: <input value={filterText} onChange={handleFilter} name="search" />
+
+
+          <div>
+            <input style={style} type="search" className="form-control my-1" placeholder="search contact " value={filterText} onChange={handleFilter} name="search" />
+          </div>
+
+
+          <h2>Numbers</h2>
+          <ul>
+            {personToShow.map((person) => (
+              <li key={person.id}>
+                {person.name} {person.contactNumber}
+                <button className="btn btn-success  px-2 mx-3" onClick={() => { handleDelete(person.id, person.name) }} >delete</button>
+
+              </li>
+            ))}
+          </ul>
+        </div>
+
       </div>
-      <form onSubmit={addPerson} >
-        <div className="form-group">
-          name: <input type='text' className="form-control" name="name" value={newName} onChange={handlePerson} />
-          number: <input type='tel' className="form-control" name="number" value={newNumber} onChange={handlePersonNumber} />
-        </div>
-        <div>
-          <button className="btn btn-primary" type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {personToShow.map((person) => (
-          <li key={person.id}>
-            {person.name} {person.number}
-            <button className="btn btn-success  px-2 mx-3" onClick={() => { handleDelete(person.id, person.name) }} >delete</button>
-
-          </li>
-        ))}
-      </ul>
+      <Footer />
     </div>
+
+
   );
 }
 
