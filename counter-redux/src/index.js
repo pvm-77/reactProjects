@@ -71,7 +71,7 @@ const App = () => {
       <div>
         {store.getState()}
       </div>
-      
+
       <button
         onClick={e => store.dispatch({ type: 'INCREMENT' })}
       >
